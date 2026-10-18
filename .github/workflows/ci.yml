@@ -1,4 +1,3 @@
-
 name: Hospital Management System CI
 
 on:
@@ -27,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
           cache-dependency-path: server/package-lock.json
 
@@ -46,7 +45,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: client
+        working-directory: client/hospital
 
     steps:
       - name: Checkout repository
@@ -55,12 +54,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
-          cache-dependency-path: client/package-lock.json
+          cache-dependency-path: client/hospital/package-lock.json
 
       - name: Install frontend dependencies
         run: npm ci
+
+      - name: Run lint
+        run: npm run lint --if-present
 
       - name: Build frontend
         run: npm run build
